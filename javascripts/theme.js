@@ -1,70 +1,6 @@
-document.write('<meta name="viewport" content="width=device-width; initial-scale=1; maximum-scale=1; user-scalable=0;target-densityDpi=device-dpi" />');
-
-//$.getScript('selectize.min.js');
-
-(function (window) {
-
-    'use strict';
-
-    function classReg(className) {
-        return new RegExp("(^|\\s+)" + className + "(\\s+|$)");
-    }
-
-    var hasClass, addClass, removeClass;
-
-    if ('classList' in document.documentElement) {
-        hasClass = function (elem, c) {
-            return elem.classList.contains(c);
-        };
-        addClass = function (elem, c) {
-            elem.classList.add(c);
-        };
-        removeClass = function (elem, c) {
-            elem.classList.remove(c);
-        };
-    }
-    else {
-        hasClass = function (elem, c) {
-            return classReg(c).test(elem.className);
-        };
-        addClass = function (elem, c) {
-            if (!hasClass(elem, c)) {
-                elem.className = elem.className + ' ' + c;
-            }
-        };
-        removeClass = function (elem, c) {
-            elem.className = elem.className.replace(classReg(c), ' ');
-        };
-    }
-
-    function toggleClass(elem, c) {
-        var fn = hasClass(elem, c) ? removeClass : addClass;
-        fn(elem, c);
-    }
-
-    var classie = {
-        // full names
-        hasClass: hasClass,
-        addClass: addClass,
-        removeClass: removeClass,
-        toggleClass: toggleClass,
-        // short names
-        has: hasClass,
-        add: addClass,
-        remove: removeClass,
-        toggle: toggleClass
-    };
-
-    // transport
-    if (typeof define === 'function' && define.amd) {
-        // AMD
-        define(classie);
-    } else {
-        // browser global
-        window.classie = classie;
-    }
-
-})(window);
+if ($('meta[name="viewport"]').attr('content').length == 0) {
+    document.write('<meta name="viewport" content="width=device-width; initial-scale=1; maximum-scale=1; user-scalable=0;" />');
+}
 
 function leftMenu() {
     var wrapper = $('#wrapper3');
@@ -74,35 +10,34 @@ function leftMenu() {
 }
 
 function addElements(){
-    $( '<div id="menu"><div class="burger"><div class="one"></div><div class="two"></div><div class="three"></div></div><div class="circle"></div></div>' ).appendTo( $( "#header" ) );
-    var menuLeft = document.getElementById( 'top-menu' ),
-        showLeft = document.getElementById( 'menu' ),
-        body = document.body,
-        search = document.getElementById( 'quick-search' ),
-        menuButton = document.getElementById( 'menu' );
+    $( '<div id="menu"><div class="burger"><div class="one"></div><div class="two"></div><div class="three"></div></div><div class="circle"></div></div>').appendTo( $( "#header" ) );
+    var menuLeft = $('#top-menu'),
+        body = $('body'),
+        search = $('#quick-search'),
+        menuButton = $('#menu');
 
-    showLeft.onclick = function() {
-        classie.toggle( this, 'active' );
-        classie.toggle( body, 'menu-push-toright' );
-        classie.toggle( menuButton, 'menu-push-toright' );
-        classie.toggle( search, 'menu-push-toright' );
-        classie.toggle( menuLeft, 'open' );
-    };
+    menuButton.click(function() {
+        $(this).toggleClass('active' );
+        body.toggleClass('menu-push-toright');
+        menuButton.toggleClass('menu-push-toright');
+        search.toggleClass('menu-push-toright');
+        menuLeft.toggleClass('open');
+    });
 }
 
 function mainMenu() {
-    if ($('#main-menu').children().length == 1) {
+    var menu = $('#main-menu');
+    if (menu.children().length == 1) {
         $('#quick-search').addClass('withMenu');
-        $( '<div id="burger-main-menu"><div class="one"></div><div class="two"></div><div class="three"></div></div>' ).appendTo( $( "#header" ) );
-        var menu = document.getElementById( 'main-menu'),
-            menuButton = document.getElementById( 'burger-main-menu'),
-            body = document.body;
-        menuButton.onclick = function() {
-            classie.toggle( this, 'active');
-            classie.toggle( body, 'show-main-menu' );
-            classie.toggle( menuButton, 'show-main-menu' );
-            classie.toggle( menu, 'open' );
-        }
+        $( '<div id="burger-main-menu"><div class="one"></div><div class="two"></div><div class="three"></div></div>').appendTo( $( "#header" ) );
+        var menuButton = $('#burger-main-menu'),
+            body = $('body');
+        menuButton.click(function() {
+            $(this).toggleClass('active');
+            body.toggleClass('show-main-menu');
+            menuButton.toggleClass('show-main-menu');
+            menu.toggleClass('open');
+        });
     }
 }
 
@@ -117,46 +52,30 @@ function wrapTable(table) {
 }
 
 function ganttsResponsive() {
-
-    $('.controller-gantts #content > table:first').remove().clone(true,true).appendTo( "#query_form" ).wrap('<div id="gantts" class="gantts autoscroll"></div>');
-    $('.controller-calendars #content > table:first').remove().clone(true,true).appendTo( "#query_form" ).wrap('<div id="calendars" class="calendars autoscroll"></div>');
-
-    var $newGantts = $('#gantts > table'),
-
-        newGanttsWidth = function(){
-            $(window).width() < 750 ? $newGantts.width($('.gantt_hdr').width() + $('#gantt_area > div').width() + 10) : $newGantts.width('100%');
-
-        };
-
+    $('.controller-gantts #content > table:first').remove().clone(true, true).appendTo("#query_form").wrap('<div id="gantts" class="gantts autoscroll"></div>');
+    $('.controller-calendars #content > table:first').remove().clone(true, true).appendTo("#query_form").wrap('<div id="calendars" class="calendars autoscroll"></div>');
+    var newGantts = $('#gantts').find('table');
+    var newGanttsWidth = function () {
+        $(window).width() < 750 ? newGantts.width($('.gantt_hdr').width() + $('#gantt_area').find('> div').width() + 10) : newGantts.width('100%');
+    };
     newGanttsWidth();
-
     $(window).on('resize', newGanttsWidth);
 }
 
-//childElements find
-function childElements(node) {
-    var elems=new Array();
-    var children = node.childNodes;
-    for (var i=0, m=children.length; i<m; i++)
-        if (children[i].nodeType===document.ELEMENT_NODE)
-            elems.push(children[i]);
-    return elems;
-}
-
-//insert After
 function insertAfter( referenceNode, newNode ) {
     referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
 }
 
 $(document).ready(function () {
-    var sidebar = jQuery('#sidebar'),
-        main = jQuery('#main');
-
-    jQuery('#header').append('<a href="/" class="logo"><span></span></a>');
-    jQuery('#header > h1').insertAfter(jQuery('.logo'));
-    jQuery('#quick-search').insertAfter(jQuery('#header > h1'));
-    jQuery('#account').insertAfter(jQuery('#loggedas'));
-
+    fixesV3();
+    var sidebar = $('#sidebar'),
+        main = $('#main'),
+        header = $('#header'),
+        logged = $('#loggedas');
+    header.append('<a href="/" class="logo"><span></span></a>');
+    header.find('> h1').insertAfter($('.logo'));
+    $('#quick-search').insertAfter(header.find('> h1'));
+    $('#account').insertAfter(logged);
     leftMenu();
     if (getViewportWidth() <= 1024) {
         if ($('#menu').length != 1) {
@@ -168,25 +87,24 @@ $(document).ready(function () {
             mainMenu();
         }
     }
-    wrapTable('table.list, table.cal, #query_form_content > fieldset + fieldset > div > table');
+    wrapTable('table.list, table.cal, #query_form_content > fieldset + fieldset > div > table, table.query-columns');
     ganttsResponsive();
-
     $('td.priority').each(function() {
        $(this).wrapInner('<span></span>');
     });
-
     if (sidebar && sidebar.children().length > 0) {
         var sidebarButton = '<a class="fa fa-plus-square sidebar-menu-trigger"></a>';
         main.prepend(sidebarButton);
     }
-
-    jQuery('.sidebar-menu-trigger').click(function() {
-        classie.toggle( this, 'open' );
-        classie.toggle( document.getElementById("sidebar"), 'open' );
+    $('.sidebar-menu-trigger').click(function() {
+        $(this).toggleClass('open');
+        $("#sidebar").toggleClass('open');
     });
-    jQuery('.add-filter').prependTo( "#filters" ).wrap('<table class="filters-add"></table>');
-
-    jQuery('#loggedas a').detach().appendTo(jQuery('#loggedas').contents().wrap('<span class="logged"></span>').end());
+    logged.find('a').detach().appendTo(logged.contents().wrap('<span class="logged"></span>').end());
+    if ($('.pagination + .pages').length == 1) {
+        $('.pages').appendTo($('.pagination'));
+    }
+    $('.query-columns').parent().parent().removeAttr('style');
 });
 
 $(window).bind('resize', function () {
@@ -202,4 +120,15 @@ $(window).bind('resize', function () {
             mainMenu();
         }
     }
+
+    fixesV3();
 });
+
+function fixesV3() {
+    $('link[rel=stylesheet][href="/stylesheets/responsive.css"]').remove();
+    $('.js-project-menu > ul').detach().appendTo('#main-menu');
+    $('.js-general-menu > ul').detach().appendTo('#top-menu');
+    $('.js-sidebar > *').detach().appendTo('#sidebar');
+    $('.js-profile-menu ul').detach().appendTo('#account');
+    $('.js-flyout-menu-toggle-button, .js-flyout-menu').remove();
+}

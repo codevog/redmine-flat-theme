@@ -100,7 +100,7 @@ table.query-columns tr {
 #header {
     background: #fff;
     border-bottom: 1px solid #dedede;
-    min-height: 9em;
+    min-height: 8em;
     position: relative;
 }
 
@@ -496,7 +496,8 @@ table.query-columns tr {
 }
 
 .controller-activities.action-index p.other-formats {
-    margin: 2px 0 0 10px;
+    margin: 20px 0 0;
+    float: none;
 }
 
 .controller-admin.action-index #admin-menu a:before {
@@ -844,10 +845,16 @@ table.query-columns tr {
     overflow-x: auto;
 }
 
-.tabular input,
-.tabular select {
-    max-width: calc(100% - 311px);
-    max-width: -moz-calc(100% - 311px);
+.tabular input[type="text"],
+.tabular input[type="password"],
+.tabular select,
+.tabular textarea {
+    max-width: none;
+    width: 50%;
+}
+
+input#time_entry_comments {
+    width: 50%;
 }
 
 .tabular label,
@@ -926,7 +933,6 @@ a:link:hover, a:link:active {
 
 body {
     font-family: Arial, 'Helvetica Neue', sans-serif;
-    font-size: 100%;
     font-size: 14px;
     left: 0;
     margin: 0;
@@ -1179,6 +1185,7 @@ table tr > th:first-child {
 table.average tr > td + td {
     padding: 0 8px;
     width: 370px;
+    white-space: nowrap;
 }
 
 table.cal tr td:nth-child(n+5) span.tip {
@@ -1251,12 +1258,56 @@ table tr > th.checkbox {
 
 #my_account_form .tabular label {
     margin-left: 0;
-    width: 165px;
+    width: 105px;
     margin-right: 10px;
 }
 
 #my_account_form .tabular select,
 #my_account_form .tabular input[type='text'] {
-    max-width: calc(100% - 175px);
-    max-width: -moz-calc(100% - 175px);
+    max-width: calc(100% - 105px);
+    max-width: -moz-calc(100% - 105px);
+}
+
+#time-tracker-menu span,
+#time-tracker-menu a {
+    padding: 0 !important;
+}
+
+#time-tracker-menu span:before,
+#time-tracker-menu a:before {
+    display: none;
+}
+
+.js-push-button {
+    margin-top: 15px;
+}
+
+span.pagination {
+    margin-top: 10px;
+    display: block;
+    margin-left: 0;
+}
+
+.add-filter {
+    float: left;
+    text-align: left;
+    clear: both;
+}
+
+.tabular p {
+    padding-left: 100px;
+}
+
+table.list td.issue {
+    min-width: 100%;
+}
+
+.controller-reports_pdfs .issues td+td,
+.controller-admin_ratings .rating-stars {
+    white-space: nowrap;
+}
+
+.controller-admin_ratings .raty-stars {
+    position: relative !important;
+    text-align: left !important
 }

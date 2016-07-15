@@ -2,6 +2,10 @@ html, body, #main {
     min-width: 300px;
 }
 
+body {
+    height: auto !important;
+}
+
 /* #Tablet (Portrait)
 ================================================== */
 
@@ -11,7 +15,10 @@ html, body, #main {
     }
 
     #header {
-        padding-left: 60px;
+        padding-left: 60px !important;
+        height: auto !important;
+        min-height: 8em !important;
+        background-color: #fff !important;
     }
 
     #quick-search.withMenu {
@@ -81,6 +88,9 @@ html, body, #main {
         padding: 5px;
         border-radius: 5px;
         transition: background 1s ease;
+        box-sizing: content-box;
+        -webkit-box-sizing: content-box;
+        -moz-box-sizing: content-box;
     }
 
     #quick-search {
@@ -165,6 +175,10 @@ html, body, #main {
         left: 0;
     }
 
+    #top-menu {
+        display: block !important;
+    }
+
     #wrapper3 {
         width: 100% !important;
         position: relative;
@@ -194,6 +208,7 @@ html, body, #main {
         -webkit-transition: -webkit-transform 0.2s, opacity 0.2s, visability 0s 0.2s;
         transition: transform 0.2s, opacity 0.2s, visability 0s 0.2s;
         overflow-y: auto;
+        display: block !important;
     }
 
     #main-menu.open {
@@ -204,6 +219,7 @@ html, body, #main {
         -webkit-transition: -webkit-transform 0.4s, opacity 0.4s;
         transition: transform 0.4s, opacity 0.4s;
         z-index: 50;
+        display: block !important;
     }
 
     #main-menu ul {
@@ -347,7 +363,8 @@ html, body, #main {
         top: 5px;
         right: 0;
         left: 0;
-        margin: 10px auto 0;
+        margin: 10px auto 0 !important;
+        max-width: none !important;
     }
 
     .tabular.settings p > em.info {
@@ -467,7 +484,10 @@ html, body, #main {
 
     #main .buttons a {
         font-size: 16px;
-        margin-right: 10px;
+        padding: 0 !important;
+        margin: 0 10px 0 0 !important;
+        border: 0 !important;
+        font-weight: normal !important;
     }
 
     #main table {
@@ -476,7 +496,7 @@ html, body, #main {
 
     #new_rating .icon-checked,
     .action-company_rating_period .icon-checked {
-        display: block;
+        display: inline-block;
         margin: 10px 0;
     }
 
@@ -647,7 +667,7 @@ html, body, #main {
     }
 
     div.issue .next-prev-links a {
-        background-color: #E0E0BC;
+        /*background-color: #E0E0BC;*/
     }
 
     div.issue .next-prev-links a + span + a {
@@ -1122,7 +1142,7 @@ html, body, #main {
     }
 
     #filters > div .add-filter {
-        display: none;
+        /*display: none;*/
     }
 
     #main {

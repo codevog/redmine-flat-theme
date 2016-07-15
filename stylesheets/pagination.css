@@ -1,6 +1,6 @@
 .previous, .page, .items, .next {
   position: relative;
-  float: left;
+  /*float: left;*/
   padding: 5px 12px;
   margin-left: -1px;
   line-height: 1.42857143;
@@ -33,7 +33,7 @@
 
 .pagination .spacer {
   position: relative;
-  float: left;
+  /*float: left;*/
   padding: 5px 12px;
   margin-left: -1px;
   line-height: 1.42857143;
